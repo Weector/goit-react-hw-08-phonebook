@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import itemsFilter from 'components/Filter/filterFunction';
+import itemsFilter from 'components/ContactList/filterFunction';
 import ContactsItem from 'components/ContacstItem/ContacstItem';
 import Button from 'components/Button/Button';
 
@@ -10,7 +10,7 @@ const ContactList = ({ contacts, filter, deleteItem }) => {
   return (
     <ul className={css.list}>
       {itemsFilter(contacts, filter).map(contact => (
-        <li key={contact.id} className={css.item}>
+        <li id={contact.id} key={contact.id} className={css.item}>
           <ContactsItem name={contact.name} number={contact.number} />
           <Button
             type="button"
