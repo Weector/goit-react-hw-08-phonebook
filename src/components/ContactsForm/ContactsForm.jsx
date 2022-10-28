@@ -1,10 +1,16 @@
-import { string, object } from 'yup';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Formik } from 'formik';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import Button from 'components/Button/Button';
+import { validationSchemaForm } from './validation Schema';
 
-import css from './ContactsForm.module.css';
+import {
+  StyledForm,
+  StyledLabel,
+  StyledError,
+  StyledInput,
+  StyledInputContainer,
+} from './ContactsForm.styled';
 
 const ContactsForm = ({ makeContactItem }) => {
   const initialValues = {
@@ -34,30 +40,6 @@ const ContactsForm = ({ makeContactItem }) => {
     setSubmitting(false);
   };
 
-  const phoneRegExp =
-    /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/;
-
-  const nameRegExp =
-    /^[a-zA-Zа-яА-Я-іїєьїʼ]+(([' -][a-zA-Zа-яА-Я-іїєьʼ ])?[a-zA-Zа-яА-Я-іїєьʼ]*)*$/;
-
-  const validationSchemaForm = object().shape({
-    name: string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .matches(
-        nameRegExp,
-        'Name may contain only letters, apostrophe, dash and spaces!'
-      )
-      .required('This is a required field!'),
-
-    number: string()
-      .matches(
-        phoneRegExp,
-        'Phone number must be digits and can contain spaces, dashes, parentheses, start with + and min length 5 symbol'
-      )
-      .required('This is a required field!'),
-  });
-
   const generateId = nanoid();
 
   return (
@@ -67,14 +49,11 @@ const ContactsForm = ({ makeContactItem }) => {
       validationSchema={validationSchemaForm}
     >
       {({ handleChange, handleBlur }) => (
-        <Form className={css.form}>
+        <StyledForm>
           {fieldData.map(({ type, name, placeholder, label }) => (
-            <div key={name} className={css.inputContainer}>
-              <label htmlFor={generateId} className={css.label}>
-                {label}
-              </label>
-              <Field
-                className={css.input}
+            <StyledInputContainer key={name}>
+              <StyledLabel htmlFor={generateId}>{label}</StyledLabel>
+              <StyledInput
                 id={generateId}
                 type={type}
                 name={name}
@@ -83,15 +62,11 @@ const ContactsForm = ({ makeContactItem }) => {
                 onChange={handleChange}
               />
 
-              <ErrorMessage
-                name={name}
-                component={'div'}
-                className={css.error}
-              />
-            </div>
+              <StyledError name={name} component={'div'} />
+            </StyledInputContainer>
           ))}
           <Button type="submit" text="Add Contact" />
-        </Form>
+        </StyledForm>
       )}
     </Formik>
   );

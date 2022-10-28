@@ -2,7 +2,7 @@ import { Formik, Field } from 'formik';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 
-import css from '../ContactsForm/ContactsForm.module.css';
+import css from './Filter.module.css';
 
 const generateID = nanoid();
 
