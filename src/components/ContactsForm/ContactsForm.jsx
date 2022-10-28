@@ -1,7 +1,7 @@
 import { string, object } from 'yup';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { nanoid } from 'nanoid';
-
+import PropTypes from 'prop-types';
 import Button from 'components/Button/Button';
 
 import css from './ContactsForm.module.css';
@@ -98,3 +98,7 @@ const ContactsForm = ({ makeContactItem }) => {
 };
 
 export default ContactsForm;
+
+ContactsForm.propTypes = {
+  makeContactItem: PropTypes.func.isRequired,
+};
