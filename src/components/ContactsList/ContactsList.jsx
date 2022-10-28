@@ -10,7 +10,7 @@ const ContactsList = ({ contacts, filter, deleteItem }) => {
   return (
     <ul className={css.list}>
       {!contacts.length ? (
-        <span>Your contact list is empty!</span>
+        <span className={css.span}>Your contacts list is empty!</span>
       ) : (
         itemsFilter(contacts, filter).map(contact => (
           <li id={contact.id} key={contact.id} className={css.item}>
