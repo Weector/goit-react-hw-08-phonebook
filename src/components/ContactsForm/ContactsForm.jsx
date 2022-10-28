@@ -6,7 +6,7 @@ import Button from 'components/Button/Button';
 
 import css from './ContactsForm.module.css';
 
-const ContactsFormik = ({ makeContactItem }) => {
+const ContactsForm = ({ makeContactItem }) => {
   const initialValues = {
     name: '',
     number: '',
@@ -97,4 +97,4 @@ const ContactsFormik = ({ makeContactItem }) => {
   );
 };
 
-export default ContactsFormik;
+export default ContactsForm;

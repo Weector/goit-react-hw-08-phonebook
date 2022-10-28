@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { nanoid } from 'nanoid';
 import css from './App.module.css';
 
-import { ContactsForm, Filter, ContactList } from './index.js';
+import { ContactsForm, Filter, ContactsList } from './index.js';
 
 class App extends Component {
   state = {
@@ -13,7 +13,7 @@ class App extends Component {
 
   makeContactItem = item => {
     const sameNameAlert = this.state.contacts.find(
-      contact => contact.name === item.name
+      contact => contact.name.toLowerCase() === item.name.toLowerCase()
     );
 
     if (!!sameNameAlert) {
@@ -21,12 +21,12 @@ class App extends Component {
       return;
     }
 
-    this.setState(prev => ({
-      contacts: [
-        ...prev.contacts,
-        { id: nanoid(), name: item.name, number: item.number },
-      ],
-    }));
+    this.setState(prev => {
+      item.id = nanoid();
+      return {
+        contacts: [...prev.contacts, item],
+      };
+    });
   };
 
   contactsFilter = e => {
@@ -41,7 +41,7 @@ class App extends Component {
     );
 
     this.setState({
-      contacts: [...remainedItems],
+      contacts: remainedItems,
     });
   };
 
@@ -55,7 +55,7 @@ class App extends Component {
 
         <h2>Contacts</h2>
         <Filter onChange={contactsFilter} value={filter} />
-        <ContactList
+        <ContactsList
           contacts={contacts}
           filter={filter}
           deleteItem={deleteItem}
