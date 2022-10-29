@@ -1,9 +1,17 @@
 import { Component } from 'react';
 
 import { nanoid } from 'nanoid';
-import css from './App.module.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { ContactsForm, Filter, ContactsList } from './index.js';
+import {
+  ContactsForm,
+  Filter,
+  ContactsList,
+  sameNameToastAlert,
+} from './index.js';
+
+import css from './App.module.css';
 
 class App extends Component {
   state = {
@@ -17,7 +25,7 @@ class App extends Component {
     );
 
     if (!!sameNameAlert) {
-      alert(`${item.name} is already in contacts!`);
+      sameNameToastAlert(item.name);
       return;
     }
 
@@ -45,6 +53,22 @@ class App extends Component {
     });
   };
 
+  componentDidMount() {
+    const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+
+    if (this.state.contacts.length === 0) localStorage.removeItem('contacts');
+  }
+
   render() {
     const { filter, contacts } = this.state;
     const { makeContactItem, contactsFilter, deleteItem } = this;
@@ -60,6 +84,7 @@ class App extends Component {
           filter={filter}
           deleteItem={deleteItem}
         />
+        <ToastContainer />
       </div>
     );
   }
