@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 
 import { nanoid } from 'nanoid';
 import { ToastContainer } from 'react-toastify';
@@ -13,14 +13,12 @@ import {
 
 import css from './App.module.css';
 
-class App extends Component {
-  state = {
-    contacts: [],
-    filter: '',
-  };
+const App = () => {
+  const [contacts, setContacts] = useState([]);
+  const [filter, setFilter] = useState('');
 
-  makeContactItem = item => {
-    const sameNameAlert = this.state.contacts.find(
+  const makeContactItem = item => {
+    const sameNameAlert = contacts.find(
       contact => contact.name.toLowerCase() === item.name.toLowerCase()
     );
 
@@ -29,65 +27,50 @@ class App extends Component {
       return;
     }
 
-    this.setState(prev => {
-      item.id = nanoid();
-      return {
-        contacts: [...prev.contacts, item],
-      };
-    });
+    item.id = nanoid();
+    return setContacts(prev => [...prev, item]);
   };
 
-  contactsFilter = e => {
-    this.setState({
-      filter: e.currentTarget.value,
-    });
+  const contactsFilter = e => {
+    setFilter(e.currentTarget.value);
   };
 
-  deleteItem = e => {
-    const remainedItems = this.state.contacts.filter(
+  const deleteItem = e => {
+    const remainedItems = contacts.filter(
       contact => contact.id !== e.target.id
     );
 
-    this.setState({
-      contacts: remainedItems,
-    });
+    setContacts([...remainedItems]);
   };
 
-  componentDidMount() {
+  useEffect(() => {
     const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
 
     if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
+      setContacts([...parsedContacts]);
     }
-  }
+  }, []);
 
-  componentDidUpdate(_, prevState) {
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+    if (contacts.length === 0) localStorage.removeItem('contacts');
+  }, [contacts]);
 
-    if (this.state.contacts.length === 0) localStorage.removeItem('contacts');
-  }
+  return (
+    <div className={css.container}>
+      <h1>Phonebook</h1>
+      <ContactsForm makeContactItem={makeContactItem} />
 
-  render() {
-    const { filter, contacts } = this.state;
-    const { makeContactItem, contactsFilter, deleteItem } = this;
-    return (
-      <div className={css.container}>
-        <h1>Phonebook</h1>
-        <ContactsForm makeContactItem={makeContactItem} />
-
-        <h2>Contacts</h2>
-        <Filter onChange={contactsFilter} value={filter} />
-        <ContactsList
-          contacts={contacts}
-          filter={filter}
-          deleteItem={deleteItem}
-        />
-        <ToastContainer />
-      </div>
-    );
-  }
-}
+      <h2>Contacts</h2>
+      <Filter onChange={contactsFilter} value={filter} />
+      <ContactsList
+        contacts={contacts}
+        filter={filter}
+        deleteItem={deleteItem}
+      />
+      <ToastContainer />
+    </div>
+  );
+};
 
 export default App;

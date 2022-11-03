@@ -6,7 +6,7 @@ import css from './Filter.module.css';
 
 const generateID = nanoid();
 
-const Filter = ({ onChange, value }) => {
+const Filter = ({ onChange }) => {
   return (
     <Formik>
       <>
@@ -19,7 +19,6 @@ const Filter = ({ onChange, value }) => {
           name="filter"
           type="text"
           onChange={onChange}
-          value={value}
           placeholder="Joh..."
         />
       </>
@@ -31,5 +30,4 @@ export default Filter;
 
 Filter.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
 };

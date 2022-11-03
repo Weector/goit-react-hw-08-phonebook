@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 
-import itemsFilter from 'components/ContactsList/filterFunction';
-import ContactsItem from 'components/ContactsItem/ContactsItem';
-import Button from 'components/Button/Button';
+import { itemsFilter, Button, ContactsItem } from '../index';
 
 import css from './ContactsList.module.css';
 
