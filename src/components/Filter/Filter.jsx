@@ -1,12 +1,12 @@
 import { Formik, Field } from 'formik';
-import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 
 import css from './Filter.module.css';
 
 const generateID = nanoid();
 
-const Filter = ({ onChange }) => {
+const Filter = ({ contactsFilter }) => {
   return (
     <Formik>
       <>
@@ -18,7 +18,7 @@ const Filter = ({ onChange }) => {
           id={generateID}
           name="filter"
           type="text"
-          onChange={onChange}
+          onChange={contactsFilter}
           placeholder="Joh..."
         />
       </>
@@ -29,5 +29,5 @@ const Filter = ({ onChange }) => {
 export default Filter;
 
 Filter.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  contactsFilter: PropTypes.func.isRequired,
 };

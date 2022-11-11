@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { nanoid } from 'nanoid';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { getContacts, getFilter } from 'redux/selectors.js';
+import { addContacts, deleteContacts } from 'redux/contactsSlice';
 
 import {
   ContactsForm,
@@ -12,10 +15,12 @@ import {
 } from './index.js';
 
 import css from './App.module.css';
+import { getFilteredContacts } from 'redux/filterSlice.js';
 
 const App = () => {
-  const [contacts, setContacts] = useState([]);
-  const [filter, setFilter] = useState('');
+  const dispatch = useDispatch();
+  const filter = useSelector(getFilter);
+  const contacts = useSelector(getContacts);
 
   const makeContactItem = item => {
     const sameNameAlert = contacts.find(
@@ -26,30 +31,27 @@ const App = () => {
       sameNameToastAlert(item.name);
       return;
     }
-
-    item.id = nanoid();
-    return setContacts(prev => [...prev, item]);
+    dispatch(addContacts(item));
   };
 
   const contactsFilter = e => {
-    setFilter(e.currentTarget.value);
+    dispatch(getFilteredContacts(e.currentTarget.value));
   };
 
   const deleteItem = e => {
     const remainedItems = contacts.filter(
-      contact => contact.id !== e.target.id
+      contact => contact.name !== e.target.name
     );
-
-    setContacts([...remainedItems]);
+    dispatch(deleteContacts(remainedItems));
   };
 
   useEffect(() => {
     const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
 
     if (parsedContacts) {
-      setContacts([...parsedContacts]);
+      dispatch(addContacts(...parsedContacts));
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -62,7 +64,7 @@ const App = () => {
       <ContactsForm makeContactItem={makeContactItem} />
 
       <h2>Contacts</h2>
-      <Filter onChange={contactsFilter} value={filter} />
+      <Filter contactsFilter={contactsFilter} value={filter} />
       <ContactsList
         contacts={contacts}
         filter={filter}
