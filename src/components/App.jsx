@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -45,18 +45,18 @@ const App = () => {
     dispatch(deleteContacts(remainedItems));
   };
 
-  useEffect(() => {
-    const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
+  // useEffect(() => {
+  //   const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
 
-    if (parsedContacts) {
-      dispatch(addContacts(...parsedContacts));
-    }
-  }, [dispatch]);
+  //   if (parsedContacts) {
+  //     dispatch(addContacts(...parsedContacts));
+  //   }
+  // }, [dispatch]);
 
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-    if (contacts.length === 0) localStorage.removeItem('contacts');
-  }, [contacts]);
+  // useEffect(() => {
+  //   localStorage.setItem('contacts', JSON.stringify(contacts));
+  //   if (contacts.length === 0) localStorage.removeItem('contacts');
+  // }, [contacts]);
 
   return (
     <div className={css.container}>
