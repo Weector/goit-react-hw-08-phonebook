@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts, getFilter } from 'redux/selectors.js';
-import { addContacts, deleteContacts } from 'redux/contactsSlice';
+import { deleteContacts } from 'redux/contactsSlice';
 
 import {
   ContactsForm,
@@ -29,7 +29,7 @@ const App = () => {
       sameNameToastAlert(item.name);
       return;
     }
-    dispatch(addContacts(item));
+    // dispatch(addContacts(item));
   };
 
   const contactsFilter = e => {
