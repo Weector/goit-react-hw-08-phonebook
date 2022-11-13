@@ -7,7 +7,7 @@ import css from './ContactsList.module.css';
 const ContactsList = ({ contacts, filter, deleteItem }) => {
   return (
     <ul className={css.list}>
-      {!contacts.length ? (
+      {!contacts?.length ? (
         <span className={css.span}>Your contacts list is empty!</span>
       ) : (
         itemsFilter(contacts, filter).map(contact => (
