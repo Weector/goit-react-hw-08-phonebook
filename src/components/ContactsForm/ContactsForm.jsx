@@ -12,8 +12,6 @@ import {
   StyledInput,
   StyledInputContainer,
 } from './ContactsForm.styled';
-import { useDispatch } from 'react-redux';
-import { addContacts } from 'redux/contactsSlice';
 
 const ContactsForm = ({ makeContactItem }) => {
   const initialValues = {
@@ -36,14 +34,11 @@ const ContactsForm = ({ makeContactItem }) => {
     },
   ];
 
-  const dispatch = useDispatch();
-
-  const handleSubmitForm = (value, { resetForm }) => {
-    // setSubmitting(true);
+  const handleSubmitForm = (value, { setSubmitting, resetForm }) => {
+    setSubmitting(true);
     makeContactItem(value);
     resetForm();
-    // setSubmitting(false);
-    dispatch(addContacts(value));
+    setSubmitting(false);
   };
 
   const generateId = nanoid();
@@ -64,6 +59,7 @@ const ContactsForm = ({ makeContactItem }) => {
                 type={type}
                 name={name}
                 placeholder={placeholder}
+                onBlur={handleBlur}
                 onChange={handleChange}
               />
 
