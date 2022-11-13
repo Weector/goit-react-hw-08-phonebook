@@ -34,11 +34,11 @@ const ContactsForm = ({ makeContactItem }) => {
     },
   ];
 
-  const handleSubmitForm = (value, { setSubmitting, resetForm }) => {
-    setSubmitting(true);
+  const handleSubmitForm = (value, { resetForm }) => {
+    // setSubmitting(true);
     makeContactItem(value);
     resetForm();
-    setSubmitting(false);
+    // setSubmitting(false);
   };
 
   const generateId = nanoid();
@@ -59,7 +59,6 @@ const ContactsForm = ({ makeContactItem }) => {
                 type={type}
                 name={name}
                 placeholder={placeholder}
-                onBlur={handleBlur}
                 onChange={handleChange}
               />
 
