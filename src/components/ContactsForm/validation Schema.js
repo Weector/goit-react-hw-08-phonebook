@@ -16,10 +16,10 @@ export const validationSchemaForm = object().shape({
     )
     .required('This is a required field!'),
 
-  number: string()
+  phone: string()
     .matches(
       phoneRegExp,
-      'Phone number must be digits and can contain spaces, dashes, parentheses, start with + and min length 5 symbol'
+      'Must be digits and can contain spaces, dashes, parentheses, start with + and min length 5 symbol'
     )
     .required('This is a required field!'),
 });

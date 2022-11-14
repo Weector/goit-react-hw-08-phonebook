@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 
-const ContactsItem = ({ name, number, phone }) => {
+const ContactsItem = ({ name, phone }) => {
   return (
     <p>
-      {name}: {number || phone}
+      {name}: {phone}
     </p>
   );
 };

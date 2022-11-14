@@ -16,7 +16,7 @@ import {
 const ContactsForm = ({ makeContactItem }) => {
   const initialValues = {
     name: '',
-    number: '',
+    phone: '',
   };
 
   const fieldData = [
@@ -28,9 +28,9 @@ const ContactsForm = ({ makeContactItem }) => {
     },
     {
       type: 'tel',
-      name: 'number',
+      name: 'phone',
       placeholder: '+38(098)123-45-67',
-      label: 'Number',
+      label: 'Phone number',
     },
   ];
 

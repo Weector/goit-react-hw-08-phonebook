@@ -1,15 +1,14 @@
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { getFilteredContacts } from 'redux/filterSlice.js';
+import { addContact, deleteContact, fetchContacts } from 'redux/operation.js';
 import { getContacts, getFilter } from 'redux/selectors.js';
-
 import { ContactsForm, Filter, ContactsList, toastAlert } from './index.js';
 
 import css from './App.module.css';
-import { getFilteredContacts } from 'redux/filterSlice.js';
-import { addContact, deleteContact, fetchContacts } from 'redux/operation.js';
-import { useEffect } from 'react';
 
 const App = () => {
   const dispatch = useDispatch();

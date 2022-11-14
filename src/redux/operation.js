@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+
 import { toastAlert } from 'components/index';
 
 axios.defaults.baseURL = 'https://63715dc40399d1995d90172a.mockapi.io/weector/';
