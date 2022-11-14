@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 
-const sameNameToastAlert = item => {
-  toast.info(`${item} is already in contacts!`, {
+const toastAlert = item => {
+  toast.error(`${item} is already in contacts!`, {
     position: 'top-center',
     autoClose: 3000,
     hideProgressBar: false,
@@ -12,4 +12,5 @@ const sameNameToastAlert = item => {
     theme: 'colored',
   });
 };
-export default sameNameToastAlert;
+
+export default toastAlert;

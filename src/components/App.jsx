@@ -3,33 +3,32 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts, getFilter } from 'redux/selectors.js';
-import { addContacts, deleteContacts } from 'redux/contactsSlice';
 
-import {
-  ContactsForm,
-  Filter,
-  ContactsList,
-  sameNameToastAlert,
-} from './index.js';
+import { ContactsForm, Filter, ContactsList, toastAlert } from './index.js';
 
 import css from './App.module.css';
 import { getFilteredContacts } from 'redux/filterSlice.js';
+import { addContact, deleteContact, fetchContacts } from 'redux/operation.js';
+import { useEffect } from 'react';
 
 const App = () => {
   const dispatch = useDispatch();
   const filter = useSelector(getFilter);
   const contacts = useSelector(getContacts);
 
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
   const makeContactItem = item => {
     const sameNameAlert = contacts.find(
       contact => contact.name.toLowerCase() === item.name.toLowerCase()
     );
-
     if (!!sameNameAlert) {
-      sameNameToastAlert(item.name);
+      toastAlert(item.name);
       return;
     }
-    dispatch(addContacts(item));
+    dispatch(addContact(item));
   };
 
   const contactsFilter = e => {
@@ -37,10 +36,7 @@ const App = () => {
   };
 
   const deleteItem = e => {
-    const remainedItems = contacts.filter(
-      contact => contact.name !== e.target.name
-    );
-    dispatch(deleteContacts(remainedItems));
+    dispatch(deleteContact(e.target.id));
   };
 
   return (

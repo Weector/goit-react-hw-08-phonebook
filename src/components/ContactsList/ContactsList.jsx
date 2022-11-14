@@ -12,7 +12,10 @@ const ContactsList = ({ contacts, filter, deleteItem }) => {
       ) : (
         itemsFilter(contacts, filter).map(contact => (
           <li id={contact.id} key={contact.id} className={css.item}>
-            <ContactsItem name={contact.name} number={contact.number} />
+            <ContactsItem
+              name={contact.name}
+              number={contact.number ? contact.number : contact.phone}
+            />
             <Button
               type="button"
               onClick={deleteItem}
@@ -32,7 +35,7 @@ ContactsList.propTypes = {
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
+      number: PropTypes.string,
     })
   ),
   filter: PropTypes.string.isRequired,
