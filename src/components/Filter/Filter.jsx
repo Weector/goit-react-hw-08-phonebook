@@ -1,12 +1,18 @@
 import { Formik, Field } from 'formik';
 import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
+import { getFilteredContacts } from 'redux/filter/filterSlice';
+import { useDispatch } from 'react-redux';
 
 import css from './Filter.module.css';
 
 const generateID = nanoid();
 
-const Filter = ({ contactsFilter }) => {
+const Filter = () => {
+  const dispatch = useDispatch();
+
+  const contactsFilter = e => {
+    dispatch(getFilteredContacts(e.currentTarget.value));
+  };
   return (
     <Formik>
       <>
@@ -27,7 +33,3 @@ const Filter = ({ contactsFilter }) => {
 };
 
 export default Filter;
-
-Filter.propTypes = {
-  contactsFilter: PropTypes.func.isRequired,
-};

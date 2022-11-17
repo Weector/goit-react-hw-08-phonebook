@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 
-const ContactsItem = ({ name, phone }) => {
+const ContactsItem = ({ name, number }) => {
   return (
     <p>
-      {name}: {phone}
+      {name}: {number}
     </p>
   );
 };
@@ -12,5 +12,5 @@ export default ContactsItem;
 
 ContactsItem.propTypes = {
   name: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
+  number: PropTypes.number,
 };

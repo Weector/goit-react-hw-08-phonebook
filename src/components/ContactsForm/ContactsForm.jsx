@@ -1,9 +1,12 @@
 import { Formik } from 'formik';
-import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
+// import { nanoid } from 'nanoid';
 
 import Button from 'components/Button/Button';
 import { validationSchemaForm } from './validation Schema';
+import { useDispatch, useSelector } from 'react-redux';
+import toastAlert from 'components/Notification/sameNameToastAlert';
+import { addContact } from 'redux/contacts/contactsOperations';
+import { getContacts } from 'redux/selectors';
 
 import {
   StyledForm,
@@ -13,10 +16,14 @@ import {
   StyledInputContainer,
 } from './ContactsForm.styled';
 
-const ContactsForm = ({ makeContactItem }) => {
+const ContactsForm = () => {
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+  // const generateId = nanoid();
+
   const initialValues = {
     name: '',
-    phone: '',
+    number: '',
   };
 
   const fieldData = [
@@ -27,12 +34,23 @@ const ContactsForm = ({ makeContactItem }) => {
       label: 'Name',
     },
     {
-      type: 'tel',
-      name: 'phone',
+      type: 'number',
+      name: 'number',
       placeholder: '+38(098)123-45-67',
       label: 'Phone number',
     },
   ];
+
+  const makeContactItem = item => {
+    const sameNameAlert = contacts.find(
+      contact => contact.name.toLowerCase() === item.name.toLowerCase()
+    );
+    if (!!sameNameAlert) {
+      toastAlert(item.name);
+      return;
+    }
+    dispatch(addContact(item));
+  };
 
   const handleSubmitForm = (value, { setSubmitting, resetForm }) => {
     setSubmitting(true);
@@ -41,40 +59,37 @@ const ContactsForm = ({ makeContactItem }) => {
     setSubmitting(false);
   };
 
-  const generateId = nanoid();
-
   return (
-    <Formik
-      onSubmit={handleSubmitForm}
-      initialValues={initialValues}
-      validationSchema={validationSchemaForm}
-    >
-      {({ handleChange, handleBlur }) => (
-        <StyledForm>
-          {fieldData.map(({ type, name, placeholder, label }) => (
-            <StyledInputContainer key={name}>
-              <StyledLabel htmlFor={generateId}>{label}</StyledLabel>
-              <StyledInput
-                id={generateId}
-                type={type}
-                name={name}
-                placeholder={placeholder}
-                onBlur={handleBlur}
-                onChange={handleChange}
-              />
+    <section>
+      <h1>Phonebook</h1>
+      <Formik
+        onSubmit={handleSubmitForm}
+        initialValues={initialValues}
+        validationSchema={validationSchemaForm}
+      >
+        {({ handleChange, handleBlur }) => (
+          <StyledForm>
+            {fieldData.map(({ type, name, placeholder, label }) => (
+              <StyledInputContainer key={name}>
+                <StyledLabel>{label}</StyledLabel>
+                <StyledInput
+                  // id={generateId}
+                  type={type}
+                  name={name}
+                  placeholder={placeholder}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                />
 
-              <StyledError name={name} component={'div'} />
-            </StyledInputContainer>
-          ))}
-          <Button type="submit" text="Add Contact" />
-        </StyledForm>
-      )}
-    </Formik>
+                <StyledError name={name} component={'div'} />
+              </StyledInputContainer>
+            ))}
+            <Button type="submit" text="Add Contact" />
+          </StyledForm>
+        )}
+      </Formik>
+    </section>
   );
 };
 
 export default ContactsForm;
-
-ContactsForm.propTypes = {
-  makeContactItem: PropTypes.func.isRequired,
-};

@@ -16,7 +16,7 @@ export const validationSchemaForm = object().shape({
     )
     .required('This is a required field!'),
 
-  phone: string()
+  number: string()
     .matches(
       phoneRegExp,
       'Must be digits and can contain spaces, dashes, parentheses, start with + and min length 5 symbol'

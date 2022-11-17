@@ -1,57 +1,30 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { Outlet, Routes, Route, Navigate } from 'react-router-dom';
+
+import { fetchContacts } from 'redux/contacts/contactsOperations.js';
+
 import 'react-toastify/dist/ReactToastify.css';
-
-import { getFilteredContacts } from 'redux/filterSlice.js';
-import { addContact, deleteContact, fetchContacts } from 'redux/operation.js';
-import { getContacts, getFilter } from 'redux/selectors.js';
-import { ContactsForm, Filter, ContactsList, toastAlert } from './index.js';
-
-import css from './App.module.css';
+import Register from './Pages/Register.jsx';
+import Contacts from './Pages/Contacts.jsx';
+import Login from './Pages/Login.jsx';
 
 const App = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(getFilter);
-  const contacts = useSelector(getContacts);
 
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  const makeContactItem = item => {
-    const sameNameAlert = contacts.find(
-      contact => contact.name.toLowerCase() === item.name.toLowerCase()
-    );
-    if (!!sameNameAlert) {
-      toastAlert(item.name);
-      return;
-    }
-    dispatch(addContact(item));
-  };
-
-  const contactsFilter = e => {
-    dispatch(getFilteredContacts(e.currentTarget.value));
-  };
-
-  const deleteItem = e => {
-    dispatch(deleteContact(e.target.id));
-  };
-
   return (
-    <div className={css.container}>
-      <h1>Phonebook</h1>
-      <ContactsForm makeContactItem={makeContactItem} />
-
-      <h2>Contacts</h2>
-      <Filter contactsFilter={contactsFilter} value={filter} />
-      <ContactsList
-        contacts={contacts}
-        filter={filter}
-        deleteItem={deleteItem}
-      />
-      <ToastContainer />
-    </div>
+    <Routes>
+      <Route path="/" element={<Outlet />}>
+        <Route index element={<Register />} />
+        <Route path="login" element={<Login />} />
+        <Route path="contacts" element={<Contacts />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Route>
+    </Routes>
   );
 };
 
