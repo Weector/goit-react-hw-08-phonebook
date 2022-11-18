@@ -1,32 +1,24 @@
 import { Button } from 'components';
-import { Formik } from 'formik';
-import { useDispatch } from 'react-redux';
-import { signUpUser } from 'redux/auth/authOperations';
-
 import {
   StyledError,
   StyledForm,
   StyledInput,
   StyledInputContainer,
   StyledLabel,
-} from './authForm.styled';
+} from 'components/ContactsForm/ContactsForm.styled';
+import { Formik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { currentUser } from 'redux/auth/authOperations';
 
-const AuthForm = () => {
+const LoginForm = () => {
   const dispatch = useDispatch();
 
   const initialValues = {
-    name: '',
     email: '',
     password: '',
   };
 
   const fieldData = [
-    {
-      type: 'text',
-      name: 'name',
-      placeholder: 'User',
-      label: 'User name',
-    },
     {
       type: 'mail',
       name: 'email',
@@ -45,7 +37,7 @@ const AuthForm = () => {
     console.log(user);
     setSubmitting(true);
 
-    dispatch(signUpUser(user));
+    dispatch(currentUser(user));
     resetForm();
     setSubmitting(false);
   };
@@ -73,7 +65,7 @@ const AuthForm = () => {
                 <StyledError name={name} component={'div'} />
               </StyledInputContainer>
             ))}
-            <Button type="submit" text="Register" />
+            <Button type="submit" text="LogIn" />
           </StyledForm>
         )}
       </Formik>
@@ -81,4 +73,4 @@ const AuthForm = () => {
   );
 };
 
-export default AuthForm;
+export default LoginForm;

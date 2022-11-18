@@ -34,7 +34,7 @@ const ContactsForm = () => {
       label: 'Name',
     },
     {
-      type: 'number',
+      type: 'phone',
       name: 'number',
       placeholder: '+38(098)123-45-67',
       label: 'Phone number',
