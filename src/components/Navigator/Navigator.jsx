@@ -1,10 +1,10 @@
 import LogOut from 'components/LogOut/LogOut';
-import { useSelector } from 'react-redux';
-import { isLoggedInSelector } from 'redux/selectors';
+// import { useSelector } from 'react-redux';
+// import { isLoggedInSelector } from 'redux/selectors';
 import { Navigation, NavItem } from './navigator.styled';
 
 const Navigator = () => {
-  const isLogedIn = useSelector(isLoggedInSelector);
+  // const isLogedIn = useSelector(isLoggedInSelector);
   return (
     <Navigation>
       <NavItem to="/" end>
