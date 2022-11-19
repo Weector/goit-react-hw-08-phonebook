@@ -5,38 +5,57 @@ import 'react-toastify/dist/ReactToastify.css';
 import Register from './Pages/Register.jsx';
 import Contacts from './Pages/Contacts.jsx';
 import Login from './Pages/Login.jsx';
-import { isLoggedInSelector, tokenSelector } from 'redux/selectors.js';
+import { isLoggedInSelector } from 'redux/selectors.js';
 import { useEffect } from 'react';
 import { refreshCurrentUser } from 'redux/auth/authOperations.js';
-import Navigator from './Navigator/Navigator.jsx';
+
+import { PrivateRoute } from './PrivateRoute/PrivateRoute.jsx';
+import PublicRoute from './PublicRoute/PublicRoute.jsx';
+import MainNavigation from './Navigation/Navigation.jsx';
+import { Box, Container } from '@chakra-ui/react';
 
 const App = () => {
   const isLoggedIn = useSelector(isLoggedInSelector);
-  const token = useSelector(tokenSelector);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    token && dispatch(refreshCurrentUser());
-  }, [token, dispatch]);
+    isLoggedIn && dispatch(refreshCurrentUser());
+  }, [dispatch, isLoggedIn]);
 
   return (
-    <>
-      <Navigator />
-      <Routes>
-        <Route path="/" element={<Outlet />}>
-          <Route
-            index
-            element={isLoggedIn ? <Navigate to="contacts" /> : <Register />}
-          />
-          <Route
-            path="login"
-            element={isLoggedIn ? <Navigate to="contacts" /> : <Login />}
-          />
-          <Route path="contacts" element={<Contacts />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Route>
-      </Routes>
-    </>
+    <Box>
+      <MainNavigation />
+      <Container maxW="container.xl">
+        <Routes>
+          <Route path="/" element={<Outlet />}>
+            <Route index element={<Navigate to="/login" />} />
+            <Route
+              path="login"
+              element={
+                <PublicRoute Component={<Login />} redirectTo="/contacts" />
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <PublicRoute Component={<Register />} redirectTo="/contacts" />
+              }
+            />
+
+            <Route
+              path="contacts"
+              element={
+                <PrivateRoute redirectTo="/login">
+                  <Contacts />
+                </PrivateRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Route>
+        </Routes>
+      </Container>
+    </Box>
   );
 };
 

@@ -1,7 +1,7 @@
-import AuthForm from 'components/AuthForm/AuthForm';
+import SignUpForm from 'components/SignUpForm/SignUpForm';
 
 function Register() {
-  return <AuthForm />;
+  return <SignUpForm />;
 }
 
 export default Register;

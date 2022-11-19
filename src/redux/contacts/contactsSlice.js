@@ -21,6 +21,7 @@ const contactsSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(fetchContacts.rejected, handleRejected)
+
       .addCase(addContact.pending, handlePending)
       .addCase(addContact.fulfilled, (state, { payload }) => {
         state.items.unshift(payload);

@@ -31,10 +31,11 @@ export const currentUser = createAsyncThunk(
 
 export const logOutUser = createAsyncThunk(
   'auth/logout',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, getState }) => {
     try {
       await phonebookAxiosInstance.post('/users/logout');
       token.unset();
+
       return;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -45,11 +46,15 @@ export const logOutUser = createAsyncThunk(
 export const refreshCurrentUser = createAsyncThunk(
   'auth/refresh_user',
   async (_, { rejectWithValue, getState }) => {
-    try {
-      const currentToken = getState().auth.token;
-      token.set(currentToken);
+    const currentToken = getState().auth.token;
 
-      return;
+    if (!currentToken) rejectWithValue();
+
+    token.set(currentToken);
+
+    try {
+      const { data } = await phonebookAxiosInstance.get('/users/current');
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }

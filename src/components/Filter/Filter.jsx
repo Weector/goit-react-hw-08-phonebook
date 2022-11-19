@@ -1,9 +1,8 @@
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import { nanoid } from 'nanoid';
 import { getFilteredContacts } from 'redux/filter/filterSlice';
 import { useDispatch } from 'react-redux';
-
-import css from './Filter.module.css';
+import { Input, Box } from '@chakra-ui/react';
 
 const generateID = nanoid();
 
@@ -15,19 +14,32 @@ const Filter = () => {
   };
   return (
     <Formik>
-      <>
-        <label className={css.label} htmlFor={generateID}>
-          Find contacts by name
-        </label>
-        <Field
-          className={css.input}
+      <Box
+        bg="brand.lightGrey"
+        w="40%"
+        p={4}
+        color="brand.primaryBlue"
+        borderWidth="1px"
+        borderRadius="lg"
+        display="flex"
+        flexDirection="column"
+        mt="2"
+        alignItems="center"
+        justifyContent="center"
+        mx="auto"
+      >
+        <label htmlFor={generateID}>Find contacts by name</label>
+        <Input
           id={generateID}
           name="filter"
           type="text"
           onChange={contactsFilter}
           placeholder="Joh..."
+          size="md"
+          width="300px"
+          borderColor="brand.lightBlue"
         />
-      </>
+      </Box>
     </Formik>
   );
 };

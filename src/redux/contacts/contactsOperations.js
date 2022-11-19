@@ -1,17 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { toastAlert } from 'components/index';
-import { phonebookAxiosInstance } from 'services/axiosInstance';
+import { phonebookAxiosInstance, token } from 'services/axiosInstance';
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
-  async (_, thunkAPI) => {
+  async (_, { rejectWithValue, getState }) => {
+    const currentToken = getState().auth.token;
+
+    if (!currentToken) rejectWithValue();
+    token.set(currentToken);
     try {
-      const response = await phonebookAxiosInstance.get('/contacts');
-      return response.data;
+      const { data } = await phonebookAxiosInstance.get('/contacts');
+
+      return data;
     } catch (error) {
       toastAlert(error);
-      return thunkAPI.rejectWithValue(error.message);
+      return rejectWithValue(error.message);
     }
   }
 );

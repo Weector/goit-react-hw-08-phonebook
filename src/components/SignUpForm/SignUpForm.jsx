@@ -2,16 +2,18 @@ import { Button } from 'components';
 import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { signUpUser } from 'redux/auth/authOperations';
+import { Form } from 'formik';
+import InputForm from 'components/InputForm/InputForm';
 
-import {
-  StyledError,
-  StyledForm,
-  StyledInput,
-  StyledInputContainer,
-  StyledLabel,
-} from './authForm.styled';
+// import {
+//   StyledError,
+//   StyledForm,
+//   StyledInput,
+//   StyledInputContainer,
+//   StyledLabel,
+// } from './authForm.styled';
 
-const AuthForm = () => {
+const SignUpForm = () => {
   const dispatch = useDispatch();
 
   const initialValues = {
@@ -28,7 +30,7 @@ const AuthForm = () => {
       label: 'User name',
     },
     {
-      type: 'mail',
+      type: 'email',
       name: 'email',
       placeholder: 'www@www.ww',
       label: 'Email',
@@ -51,34 +53,20 @@ const AuthForm = () => {
   };
   return (
     <section>
-      <h1>Signup</h1>
-      <Formik
-        onSubmit={handleSubmitForm}
-        initialValues={initialValues}
-        // validationSchema={validationSchemaForm}
-      >
+      <Formik onSubmit={handleSubmitForm} initialValues={initialValues}>
         {({ handleChange, handleBlur }) => (
-          <StyledForm>
-            {fieldData.map(({ type, name, placeholder, label }) => (
-              <StyledInputContainer key={name}>
-                <StyledLabel>{label}</StyledLabel>
-                <StyledInput
-                  type={type}
-                  name={name}
-                  placeholder={placeholder}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                />
-
-                <StyledError name={name} component={'div'} />
-              </StyledInputContainer>
-            ))}
+          <Form>
+            <InputForm
+              fieldData={fieldData}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+            />
             <Button type="submit" text="Register" />
-          </StyledForm>
+          </Form>
         )}
       </Formik>
     </section>
   );
 };
 
-export default AuthForm;
+export default SignUpForm;
