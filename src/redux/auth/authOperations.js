@@ -28,7 +28,6 @@ export const currentUser = createAsyncThunk(
       token.set(data.token);
       return data;
     } catch (e) {
-      console.log(e);
       Notify.warning(`Invalid email or password, ${e.code}`, {
         position: 'center-top',
       });

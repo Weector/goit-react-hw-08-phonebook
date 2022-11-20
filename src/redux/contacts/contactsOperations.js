@@ -54,8 +54,7 @@ export const updateContact = createAsyncThunk(
   'contacts/updateContact',
   async ({ name, number, id }, { rejectWithValue }) => {
     const contact = { name, number };
-    console.log('contactOperation', contact);
-    console.log('contactIDOperation', id);
+
     try {
       const { data } = await phonebookAxiosInstance.patch(
         `/contacts/${id}`,

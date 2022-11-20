@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { addContact } from 'redux/contacts/contactsOperations';
 import { selectContactsItem } from 'redux/selectors';
+
 import {
   Box,
   Button,
@@ -59,7 +60,7 @@ const ContactsForm = () => {
                 bgColor="white"
                 name="name"
                 type="name"
-                placeholder="Sirius Black"
+                placeholder="Tony Stark"
                 aria-label="Name"
                 pattern="^[a-zA-Zа-яА-Я-іїєьїʼ]+(([' -][a-zA-Zа-яА-Я-іїєьʼ ])?[a-zA-Zа-яА-Я-іїєьʼ]*)*$"
                 title="Name may contain only letters, apostrophe, dash and spaces"

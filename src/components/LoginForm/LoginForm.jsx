@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentUser } from 'redux/auth/authOperations';
+import { selectLoading } from 'redux/selectors';
 
 import { EmailIcon, LockIcon } from '@chakra-ui/icons';
 import {
@@ -16,7 +17,6 @@ import {
   Text,
   Spinner,
 } from '@chakra-ui/react';
-import { selectLoading } from 'redux/selectors';
 
 const LoginForm = () => {
   const dispatch = useDispatch();

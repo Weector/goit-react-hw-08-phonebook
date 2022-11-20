@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 import { itemsFilter, ContactsItem } from '../index';
 import { selectContactsItem, selectFilter, selectToken } from 'redux/selectors';
-
 import {
   deleteContact,
   updateContact,
   fetchContacts,
 } from 'redux/contacts/contactsOperations';
-import { useEffect } from 'react';
+
 import {
   Box,
   Button,
@@ -142,7 +142,11 @@ const ContactsList = () => {
                             rounded="md"
                             textAlign="center"
                           >
-                            <PopoverCloseButton mr="-3" mt="-1" />
+                            <PopoverCloseButton
+                              mr="-3"
+                              mt="-1"
+                              color="facebook.700"
+                            />
                             <PopoverBody>
                               <form onSubmit={handleFormSumbit}>
                                 <Stack spacing="3">

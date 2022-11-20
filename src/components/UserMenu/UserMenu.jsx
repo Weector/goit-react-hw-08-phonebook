@@ -1,3 +1,7 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { logOutUser } from 'redux/auth/authOperations';
+import { selectIsLogin, selectUser } from 'redux/selectors';
+
 import {
   Box,
   Button,
@@ -6,11 +10,6 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { logOutUser } from 'redux/auth/authOperations';
-
-import { selectIsLogin, selectUser } from 'redux/selectors';
 
 const UserMenu = () => {
   const isLogin = useSelector(selectIsLogin);

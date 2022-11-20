@@ -1,8 +1,9 @@
+import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { nanoid } from 'nanoid';
-import { getFilteredContacts } from 'redux/filter/filterSlice';
-import { useDispatch } from 'react-redux';
 import { Input, Box } from '@chakra-ui/react';
+
+import { getFilteredContacts } from 'redux/filter/filterSlice';
 
 const generateID = nanoid();
 
@@ -30,12 +31,9 @@ const Filter = () => {
           name="filter"
           type="text"
           onChange={contactsFilter}
-          placeholder="Sir..."
+          placeholder="Ton..."
           bgColor="white"
           mt="3"
-          // size="md"
-          // width="300px"
-          // borderColor="brand.lightBlue"
         />
       </Box>
     </Formik>
