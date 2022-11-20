@@ -10,15 +10,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { logOutUser } from 'redux/auth/authOperations';
 
-import { isLoggedInSelector, userSelector } from 'redux/selectors';
+import { selectIsLogin, selectUser } from 'redux/selectors';
 
 const UserMenu = () => {
-  const isLogIn = useSelector(isLoggedInSelector);
-  const user = useSelector(userSelector);
+  const isLogin = useSelector(selectIsLogin);
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   return (
-    isLogIn && (
+    isLogin && (
       <Box display="flex" alignItems="center" p="1.5">
         <Popover>
           <PopoverTrigger>

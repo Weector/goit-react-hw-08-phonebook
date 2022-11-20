@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Register from './Pages/Register.jsx';
 import Contacts from './Pages/Contacts.jsx';
 import Login from './Pages/Login.jsx';
-import { isLoggedInSelector } from 'redux/selectors.js';
+import { selectIsLogin } from 'redux/selectors.js';
 import { useEffect } from 'react';
 import { refreshCurrentUser } from 'redux/auth/authOperations.js';
 
@@ -15,13 +15,13 @@ import MainNavigation from './Navigation/Navigation.jsx';
 import { Box } from '@chakra-ui/react';
 
 const App = () => {
-  const isLoggedIn = useSelector(isLoggedInSelector);
+  const isLogin = useSelector(selectIsLogin);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    isLoggedIn && dispatch(refreshCurrentUser());
-  }, [dispatch, isLoggedIn]);
+    isLogin && dispatch(refreshCurrentUser());
+  }, [dispatch, isLogin]);
 
   return (
     <Box>

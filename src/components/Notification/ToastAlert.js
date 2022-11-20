@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 
-const toastAlert = item => {
-  toast.error(`${item} Ooops`, {
+const toastAlert = error => {
+  toast.error(`Try again, ${error}`, {
     position: 'top-center',
     autoClose: 3000,
     hideProgressBar: false,

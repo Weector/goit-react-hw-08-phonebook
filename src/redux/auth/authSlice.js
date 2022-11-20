@@ -10,13 +10,13 @@ const initialState = {
   user: {},
   token: '',
   loading: false,
-  error: '',
+  error: null,
   isLoggedIn: false,
 };
 
 const handelPending = state => {
   state.loading = true;
-  state.error = '';
+  state.error = null;
 };
 
 const handelError = (state, { payload }) => {

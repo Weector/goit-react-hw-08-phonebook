@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toastAlert } from 'components';
 import { phonebookAxiosInstance, token } from 'services/axiosInstance';
 
 export const signUpUser = createAsyncThunk(
@@ -7,10 +8,11 @@ export const signUpUser = createAsyncThunk(
     try {
       const { data } = await phonebookAxiosInstance.post('/users/signup', user);
       token.set(data.token);
-      console.log('create', data);
+
       return data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      toastAlert(error.response.data.message);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -24,6 +26,7 @@ export const currentUser = createAsyncThunk(
       console.log('create', data);
       return data;
     } catch (error) {
+      toastAlert();
       return rejectWithValue(error.message);
     }
   }
@@ -31,13 +34,14 @@ export const currentUser = createAsyncThunk(
 
 export const logOutUser = createAsyncThunk(
   'auth/logout',
-  async (_, { rejectWithValue, getState }) => {
+  async (_, { rejectWithValue }) => {
     try {
       await phonebookAxiosInstance.post('/users/logout');
       token.unset();
 
       return;
     } catch (error) {
+      toastAlert(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -56,6 +60,7 @@ export const refreshCurrentUser = createAsyncThunk(
       const { data } = await phonebookAxiosInstance.get('/users/current');
       return data;
     } catch (error) {
+      toastAlert(error.message);
       return rejectWithValue(error.message);
     }
   }

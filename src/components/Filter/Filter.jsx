@@ -22,7 +22,6 @@ const Filter = () => {
         textAlign="center"
         color="facebook.700"
         textTransform="uppercase"
-        _hover={{ bg: 'gray.200' }}
         fontWeight="black"
       >
         <label htmlFor={generateID}>Find contacts</label>
