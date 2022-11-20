@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { toastAlert } from 'components';
+
+import { Notify } from 'notiflix';
 import { phonebookAxiosInstance, token } from 'services/axiosInstance';
 
 export const signUpUser = createAsyncThunk(
@@ -10,9 +11,11 @@ export const signUpUser = createAsyncThunk(
       token.set(data.token);
 
       return data;
-    } catch (error) {
-      toastAlert(error.response.data.message);
-      return rejectWithValue(error.response.data.message);
+    } catch (e) {
+      Notify.warning(e.response.data.message, {
+        position: 'center-top',
+      });
+      return rejectWithValue(e.response.data.message);
     }
   }
 );
@@ -23,11 +26,13 @@ export const currentUser = createAsyncThunk(
     try {
       const { data } = await phonebookAxiosInstance.post('/users/login', user);
       token.set(data.token);
-      console.log('create', data);
       return data;
-    } catch (error) {
-      toastAlert();
-      return rejectWithValue(error.message);
+    } catch (e) {
+      console.log(e);
+      Notify.warning(`Invalid email or password, ${e.code}`, {
+        position: 'center-top',
+      });
+      return rejectWithValue(e.message);
     }
   }
 );
@@ -40,9 +45,9 @@ export const logOutUser = createAsyncThunk(
       token.unset();
 
       return;
-    } catch (error) {
-      toastAlert(error.message);
-      return rejectWithValue(error.message);
+    } catch (e) {
+      Notify.failure(e.message, { position: 'center-top' });
+      return rejectWithValue(e.message);
     }
   }
 );
@@ -59,9 +64,9 @@ export const refreshCurrentUser = createAsyncThunk(
     try {
       const { data } = await phonebookAxiosInstance.get('/users/current');
       return data;
-    } catch (error) {
-      toastAlert(error.message);
-      return rejectWithValue(error.message);
+    } catch (e) {
+      Notify.failure(e.message, { position: 'center-top' });
+      return rejectWithValue(e.message);
     }
   }
 );

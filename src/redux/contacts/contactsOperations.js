@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { toastAlert } from 'components';
+import { Notify } from 'notiflix';
+
 import { phonebookAxiosInstance, token } from 'services/axiosInstance';
 
 export const fetchContacts = createAsyncThunk(
@@ -13,44 +14,45 @@ export const fetchContacts = createAsyncThunk(
       const { data } = await phonebookAxiosInstance.get('/contacts');
 
       return data;
-    } catch (error) {
-      toastAlert(error.message);
-      return rejectWithValue(error.message);
+    } catch (e) {
+      Notify.failure(e.message, { position: 'center-top' });
+      return rejectWithValue(e.message);
     }
   }
 );
 
 export const addContact = createAsyncThunk(
   'contacts/addContact',
-  async (contact, thunkAPI) => {
+  async (contact, { rejectWithValue }) => {
     try {
       const response = await phonebookAxiosInstance.post('/contacts', contact);
       return response.data;
-    } catch (error) {
-      toastAlert(error.message);
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (e) {
+      Notify.failure(e.message, { position: 'center-top' });
+      return rejectWithValue(e.message);
     }
   }
 );
 
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
-  async (contactId, thunkAPI) => {
+  async (contactId, { rejectWithValue }) => {
     try {
       const { data } = await phonebookAxiosInstance.delete(
         `/contacts/${contactId}`
       );
+      Notify.info('Deleted', { position: 'center-top' });
       return data;
-    } catch (error) {
-      toastAlert(error.message);
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (e) {
+      Notify.failure(e.message, { position: 'center-top' });
+      return rejectWithValue(e.message);
     }
   }
 );
 
 export const updateContact = createAsyncThunk(
   'contacts/updateContact',
-  async ({ name, number, id }, thunkAPI) => {
+  async ({ name, number, id }, { rejectWithValue }) => {
     const contact = { name, number };
     console.log('contactOperation', contact);
     console.log('contactIDOperation', id);
@@ -59,10 +61,11 @@ export const updateContact = createAsyncThunk(
         `/contacts/${id}`,
         contact
       );
+      Notify.success('Done', { position: 'center-top' });
       return data;
-    } catch (error) {
-      toastAlert(error.message);
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (e) {
+      Notify.failure(e.message, { position: 'center-top' });
+      return rejectWithValue(e.message);
     }
   }
 );

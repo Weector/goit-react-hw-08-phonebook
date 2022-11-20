@@ -21,6 +21,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Portal,
+  Stack,
   Table,
   TableCaption,
   TableContainer,
@@ -31,7 +32,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
-import { DeleteIcon } from '@chakra-ui/icons';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 
 const ContactsList = () => {
   const contacts = useSelector(selectContactsItem);
@@ -44,7 +45,6 @@ const ContactsList = () => {
   }, [dispatch, token]);
 
   const deleteItem = e => {
-    console.log('delete', e.target.id);
     dispatch(deleteContact(e.target.id));
   };
 
@@ -58,11 +58,8 @@ const ContactsList = () => {
       number: number.defaultValue,
       id: button.id,
     };
-    const contactId = e.currentTarget.elements.button.id;
 
-    console.log('object :>> ', contact);
-    console.log('object :>> ', e.currentTarget.elements.button.id);
-    dispatch(updateContact(contact, contactId));
+    dispatch(updateContact(contact));
 
     e.target.reset();
   };
@@ -98,8 +95,8 @@ const ContactsList = () => {
               <Tr>
                 <Th>Name</Th>
                 <Th>Phone number</Th>
-                <Th>Delete</Th>
-                <Th>Edit</Th>
+                <Th pl="8">Delete</Th>
+                <Th pl="10">Edit</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -121,31 +118,65 @@ const ContactsList = () => {
                   <Td>
                     <Popover>
                       <PopoverTrigger>
-                        <Button>Trigger</Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          colorScheme="facebook"
+                          boxShadow="md"
+                          pl="22px"
+                          mr="1"
+                          leftIcon={<EditIcon />}
+                        />
                       </PopoverTrigger>
                       <Portal>
-                        <PopoverContent>
-                          <PopoverCloseButton />
-                          <PopoverBody>
-                            <form onSubmit={handleFormSumbit}>
-                              <Editable defaultValue={contact.name}>
-                                <EditablePreview />
-                                <EditableInput name="name" />
-                              </Editable>
-                              <Editable defaultValue={contact.number}>
-                                <EditablePreview />
-                                <EditableInput name="number" />
-                              </Editable>
-                              <Button
-                                name="button"
-                                type="submit"
-                                colorScheme="facebook"
-                                id={contact.id}
-                              >
-                                Edit
-                              </Button>
-                            </form>
-                          </PopoverBody>
+                        <PopoverContent
+                          ml="460px"
+                          maxW="210px"
+                          mt="-55"
+                          mr="30px"
+                        >
+                          <Box
+                            bg="gray.100"
+                            p="1"
+                            boxShadow="md"
+                            rounded="md"
+                            textAlign="center"
+                          >
+                            <PopoverCloseButton mr="-3" mt="-1" />
+                            <PopoverBody>
+                              <form onSubmit={handleFormSumbit}>
+                                <Stack spacing="3">
+                                  <Editable
+                                    defaultValue={contact.name}
+                                    bgColor="white"
+                                    rounded="md"
+                                    color="facebook.700"
+                                  >
+                                    <EditablePreview />
+                                    <EditableInput name="name" />
+                                  </Editable>
+                                  <Editable
+                                    defaultValue={contact.number}
+                                    bgColor="white"
+                                    rounded="md"
+                                    color="facebook.700"
+                                  >
+                                    <EditablePreview />
+                                    <EditableInput name="number" />
+                                  </Editable>
+
+                                  <Button
+                                    name="button"
+                                    type="submit"
+                                    colorScheme="facebook"
+                                    id={contact.id}
+                                  >
+                                    Edit
+                                  </Button>
+                                </Stack>
+                              </form>
+                            </PopoverBody>
+                          </Box>
                         </PopoverContent>
                       </Portal>
                     </Popover>

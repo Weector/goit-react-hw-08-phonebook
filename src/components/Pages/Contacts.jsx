@@ -9,7 +9,6 @@ const Contacts = () => {
       display="flex"
       gap="20"
       my="60px"
-      mx="80px"
       justifyContent="center"
       position="relative"
     >

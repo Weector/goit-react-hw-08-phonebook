@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import toastAlert from 'components/Notification/ToastAlert';
+
 import { addContact } from 'redux/contacts/contactsOperations';
 import { selectContactsItem } from 'redux/selectors';
 import {
@@ -26,7 +26,6 @@ const ContactsForm = () => {
       contact => contact.name.toLowerCase() === item.name.toLowerCase()
     );
     if (!!sameNameAlert) {
-      toastAlert(item.name);
       return;
     }
     dispatch(addContact(item));
