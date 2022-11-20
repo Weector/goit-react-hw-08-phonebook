@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { toastAlert } from 'components/index';
 import { phonebookAxiosInstance, token } from 'services/axiosInstance';
 
 export const fetchContacts = createAsyncThunk(
@@ -15,7 +14,6 @@ export const fetchContacts = createAsyncThunk(
 
       return data;
     } catch (error) {
-      toastAlert(error);
       return rejectWithValue(error.message);
     }
   }
@@ -28,7 +26,6 @@ export const addContact = createAsyncThunk(
       const response = await phonebookAxiosInstance.post('/contacts', contact);
       return response.data;
     } catch (error) {
-      toastAlert(error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -43,7 +40,6 @@ export const deleteContact = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      toastAlert(error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }

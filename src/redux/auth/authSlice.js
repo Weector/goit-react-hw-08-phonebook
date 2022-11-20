@@ -55,6 +55,7 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
       })
       .addCase(logOutUser.rejected, handelError)
+
       .addCase(refreshCurrentUser.pending, handelPending)
       .addCase(refreshCurrentUser.fulfilled, (state, { payload }) => {
         state.user = payload;

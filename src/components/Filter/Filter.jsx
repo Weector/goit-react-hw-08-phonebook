@@ -15,29 +15,28 @@ const Filter = () => {
   return (
     <Formik>
       <Box
-        bg="brand.lightGrey"
-        w="40%"
-        p={4}
-        color="brand.primaryBlue"
-        borderWidth="1px"
-        borderRadius="lg"
-        display="flex"
-        flexDirection="column"
-        mt="2"
-        alignItems="center"
-        justifyContent="center"
+        bg="gray.100"
+        rounded="md"
         mx="auto"
+        mt="5"
+        textAlign="center"
+        color="facebook.700"
+        textTransform="uppercase"
+        _hover={{ bg: 'gray.200' }}
+        fontWeight="black"
       >
-        <label htmlFor={generateID}>Find contacts by name</label>
+        <label htmlFor={generateID}>Find contacts</label>
         <Input
           id={generateID}
           name="filter"
           type="text"
           onChange={contactsFilter}
-          placeholder="Joh..."
-          size="md"
-          width="300px"
-          borderColor="brand.lightBlue"
+          placeholder="Sir..."
+          bgColor="white"
+          mt="3"
+          // size="md"
+          // width="300px"
+          // borderColor="brand.lightBlue"
         />
       </Box>
     </Formik>

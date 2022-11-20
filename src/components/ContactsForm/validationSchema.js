@@ -6,7 +6,7 @@ const phoneRegExp =
 const nameRegExp =
   /^[a-zA-Zа-яА-Я-іїєьїʼ]+(([' -][a-zA-Zа-яА-Я-іїєьʼ ])?[a-zA-Zа-яА-Я-іїєьʼ]*)*$/;
 
-export const validationSchemaForm = object().shape({
+export const validationSchema = object().shape({
   name: string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')

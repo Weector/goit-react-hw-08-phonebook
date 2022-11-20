@@ -1,10 +1,12 @@
+import { Td } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
 const ContactsItem = ({ name, number }) => {
   return (
-    <p>
-      {name}: {number}
-    </p>
+    <>
+      <Td>{name}</Td>
+      <Td>{number}</Td>
+    </>
   );
 };
 

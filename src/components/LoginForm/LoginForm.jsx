@@ -1,3 +1,8 @@
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { currentUser } from 'redux/auth/authOperations';
+
+import { EmailIcon, LockIcon } from '@chakra-ui/icons';
 import {
   Button,
   Divider,
@@ -6,133 +11,96 @@ import {
   InputGroup,
   InputLeftElement,
   Stack,
-  Icon,
   FormHelperText,
+  Box,
+  Text,
+  useToast,
 } from '@chakra-ui/react';
-
-// import InputForm from 'components/InputForm/InputForm';
-// import {
-//   StyledError,
-//   StyledForm,
-//   StyledInput,
-//   StyledInputContainer,
-//   StyledLabel,
-// } from 'components/ContactsForm/ContactsForm.styled';
-
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-
-import { currentUser } from 'redux/auth/authOperations';
+import { userError } from 'redux/selectors';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const error = useSelector(userError);
+  const toast = useToast();
 
-  // const initialValues = {
-  //   email: '',
-  //   password: '',
-  // };
-
-  // const fieldData = [
-  //   {
-  //     type: 'email',
-  //     name: 'email',
-  //     placeholder: 'www@www.ww',
-  //     label: 'Email',
-  //   },
-  //   {
-  //     type: 'password',
-  //     name: 'password',
-  //     placeholder: '*******',
-  //     label: 'Password',
-  //   },
-  // ];
-
-  // const handleSubmitForm = (value, { setSubmitting, resetForm }) => {
-  //   console.log(value);
-  //   setSubmitting(true);
-  //   dispatch(currentUser(value));
-  //   resetForm(value);
-  //   setSubmitting(false);
-  // };
   const handleSubmitForm = e => {
     e.preventDefault();
+    console.log(error);
     const { password, email } = e.currentTarget.elements;
-    console.log('email :>> ', email.value);
-    console.log('password :>> ', password.value);
     const user = {
       email: email.value,
       password: password.value,
     };
     dispatch(currentUser(user));
+    error &&
+      toast({
+        title: 'Incorrect email or password',
+        description: error,
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      });
+
     e.target.reset();
   };
   return (
-    <form action="submit" onSubmit={handleSubmitForm}>
-      <Stack spacing="3">
-        <FormControl isRequired>
-          <InputGroup>
-            <InputLeftElement children={<Icon name="email" />} />
-            <Input
-              name="email"
-              type="email"
-              placeholder="Email"
-              aria-label="Email"
-            />
-          </InputGroup>
-        </FormControl>
-        <FormControl isRequired>
-          <InputGroup>
-            <InputLeftElement children={<Icon name="lock" />} />
-            <Input
-              name="password"
-              type="password"
-              placeholder="Password"
-              aria-label="Password"
-            />
-          </InputGroup>
-        </FormControl>
-        <Divider />
-        <Button
-          type="submit"
-          variant="solid"
-          colorScheme="facebook"
-          boxShadow="md"
-          // _hover={{ boxShadow: 'lg' }}
-        >
-          Log in
-        </Button>
-        <FormControl>
-          <FormHelperText textAlign="center">
-            Log In to see your phonebook, or
-            <Link style={{ color: 'darkblue' }} to="/register">
-              {' '}
-              click here to create new account!
-            </Link>
-          </FormHelperText>
-        </FormControl>
-      </Stack>
-    </form>
-    // <Box boxSize="sm">
-    //   <Formik onSubmit={handleSubmitForm} initialValues={initialValues}>
-    //     {({ handleChange, handleBlur }) => (
-    //       <Form>
-    //         <InputForm
-    //           fieldData={fieldData}
-    //           handleChange={handleChange}
-    //           handleBlur={handleBlur}
-    //         />
-    //         <Button
-    //           type="submit"
-    //           variant="solid"
-    //           colorScheme="facebook"
-    //           boxShadow="lg"
-    //         >
-    //           Log in
-    //         </Button>
-    //       </Form>
-    //     )}
-    //   </Formik>
-    // </Box>
+    <Box
+      bg="gray.100"
+      w="400px"
+      p="6"
+      boxShadow="md"
+      rounded="md"
+      mx="auto"
+      mt="20"
+    >
+      <form action="submit" onSubmit={handleSubmitForm}>
+        <Stack spacing="3">
+          <FormControl isRequired>
+            <InputGroup>
+              <InputLeftElement children={<EmailIcon />} />
+              <Input
+                bgColor="white"
+                name="email"
+                type="email"
+                placeholder="Email"
+                aria-label="Email"
+              />
+            </InputGroup>
+          </FormControl>
+          <FormControl isRequired>
+            <InputGroup>
+              <InputLeftElement children={<LockIcon />} />
+              <Input
+                bgColor="white"
+                name="password"
+                type="password"
+                placeholder="Password"
+                aria-label="Password"
+              />
+            </InputGroup>
+          </FormControl>
+          <Divider borderColor="gray.300" />
+          <Button
+            type="submit"
+            variant="solid"
+            colorScheme="facebook"
+            boxShadow="md"
+          >
+            Login
+          </Button>
+          <FormControl>
+            <FormHelperText textAlign="center">
+              Login to see your phonebook, or
+              <Link style={{ color: 'darkblue' }} to="/register">
+                <Text color="facebook.500" letterSpacing="wide">
+                  click here to Sign Up!
+                </Text>
+              </Link>
+            </FormHelperText>
+          </FormControl>
+        </Stack>
+      </form>
+    </Box>
   );
 };
 

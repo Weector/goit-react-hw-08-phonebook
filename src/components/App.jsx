@@ -12,7 +12,7 @@ import { refreshCurrentUser } from 'redux/auth/authOperations.js';
 import { PrivateRoute } from './PrivateRoute/PrivateRoute.jsx';
 import PublicRoute from './PublicRoute/PublicRoute.jsx';
 import MainNavigation from './Navigation/Navigation.jsx';
-import { Box, Container } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 
 const App = () => {
   const isLoggedIn = useSelector(isLoggedInSelector);
@@ -26,35 +26,33 @@ const App = () => {
   return (
     <Box>
       <MainNavigation />
-      <Container maxW="container.xl">
-        <Routes>
-          <Route path="/" element={<Outlet />}>
-            <Route index element={<Navigate to="/login" />} />
-            <Route
-              path="login"
-              element={
-                <PublicRoute Component={<Login />} redirectTo="/contacts" />
-              }
-            />
-            <Route
-              path="register"
-              element={
-                <PublicRoute Component={<Register />} redirectTo="/contacts" />
-              }
-            />
+      <Routes>
+        <Route path="/" element={<Outlet />}>
+          <Route index element={<Navigate to="/login" />} />
+          <Route
+            path="login"
+            element={
+              <PublicRoute Component={<Login />} redirectTo="/contacts" />
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <PublicRoute Component={<Register />} redirectTo="/contacts" />
+            }
+          />
 
-            <Route
-              path="contacts"
-              element={
-                <PrivateRoute redirectTo="/login">
-                  <Contacts />
-                </PrivateRoute>
-              }
-            />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Route>
-        </Routes>
-      </Container>
+          <Route
+            path="contacts"
+            element={
+              <PrivateRoute redirectTo="/login">
+                <Contacts />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Route>
+      </Routes>
     </Box>
   );
 };

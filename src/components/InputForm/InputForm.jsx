@@ -1,4 +1,5 @@
-import { FormErrorMessage, Input, Stack } from '@chakra-ui/react';
+import { Input, Stack } from '@chakra-ui/react';
+import { ErrorMessage } from 'formik';
 
 const InputForm = ({ fieldData, handleBlur, handleChange }) => {
   return (
@@ -16,7 +17,7 @@ const InputForm = ({ fieldData, handleBlur, handleChange }) => {
               onChange={handleChange}
             />
           </label>
-          <FormErrorMessage name={name} component={'div'} />
+          <ErrorMessage name={name} component={'div'} />
         </div>
       ))}
     </Stack>
