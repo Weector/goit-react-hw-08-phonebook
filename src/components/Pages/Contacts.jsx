@@ -6,22 +6,23 @@ import { ToastContainer } from 'react-toastify';
 const Contacts = () => {
   return (
     <Box
-      display="flex"
+      display={['block', 'block', 'flex']}
       gap="20"
-      my="60px"
+      my={['3', '3', '10']}
       justifyContent="center"
       position="relative"
+      p="3"
     >
       <Box
-        bgColor="gray.100"
-        p="10"
+        p="6"
         alignItems="center"
         rounded="lg"
         boxShadow="lg"
         maxH="360px"
-        position="sticky"
+        position={['unset', 'unset', 'sticky']}
         top="50px"
         left="0"
+        border="1px solid lightblue"
       >
         <ContactsForm />
         <Filter />

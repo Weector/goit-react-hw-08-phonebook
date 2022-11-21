@@ -13,14 +13,12 @@ import {
   InputGroup,
   InputLeftElement,
   Stack,
-  useToast,
 } from '@chakra-ui/react';
 import { InfoIcon, PhoneIcon } from '@chakra-ui/icons';
 
 const ContactsForm = () => {
   const contacts = useSelector(selectContactsItem);
   const dispatch = useDispatch();
-  const toast = useToast();
 
   const makeContactItem = item => {
     const sameNameAlert = contacts.find(
@@ -30,12 +28,6 @@ const ContactsForm = () => {
       return;
     }
     dispatch(addContact(item));
-    toast({
-      title: 'Contact created.',
-      status: 'success',
-      duration: 2000,
-      isClosable: true,
-    });
   };
 
   const handleSubmitForm = e => {
@@ -57,7 +49,8 @@ const ContactsForm = () => {
             <InputGroup>
               <InputLeftElement children={<InfoIcon />} />
               <Input
-                bgColor="white"
+                outline="1px solid lightblue"
+                colorScheme="telegram"
                 name="name"
                 type="name"
                 placeholder="Tony Stark"
@@ -72,7 +65,8 @@ const ContactsForm = () => {
             <InputGroup>
               <InputLeftElement children={<PhoneIcon />} />
               <Input
-                bgColor="white"
+                outline="1px solid lightblue"
+                colorScheme="telegram"
                 name="number"
                 type="tel"
                 placeholder="+38(098)765-43-21"
@@ -86,7 +80,7 @@ const ContactsForm = () => {
           <Button
             type="submit"
             variant="solid"
-            colorScheme="facebook"
+            colorScheme="telegram"
             boxShadow="md"
           >
             Add contact

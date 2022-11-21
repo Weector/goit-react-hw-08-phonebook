@@ -34,21 +34,21 @@ const SignUpForm = () => {
 
   return (
     <Box
-      bg="gray.100"
       w="400px"
       p="6"
-      boxShadow="md"
+      boxShadow="2xl"
       rounded="md"
       mx="auto"
       mt="20"
       textAlign="center"
+      border="1px solid lightblue"
     >
       {loading ? (
         <Spinner
           thickness="4px"
           speed="0.65s"
-          emptyColor="gray.200"
-          color="facebook.700"
+          emptyColor="telegram.100"
+          colorScheme="telegram"
           size="xl"
           textAlign="center"
         />
@@ -59,7 +59,7 @@ const SignUpForm = () => {
               <InputGroup>
                 <InputLeftElement children={<InfoIcon />} />
                 <Input
-                  bgColor="white"
+                  outline="1px solid lightblue"
                   name="name"
                   type="name"
                   placeholder="User Name"
@@ -71,7 +71,7 @@ const SignUpForm = () => {
               <InputGroup>
                 <InputLeftElement children={<EmailIcon />} />
                 <Input
-                  bgColor="white"
+                  outline="1px solid lightblue"
                   name="email"
                   type="email"
                   placeholder="Email"
@@ -83,7 +83,7 @@ const SignUpForm = () => {
               <InputGroup>
                 <InputLeftElement children={<LockIcon />} />
                 <Input
-                  bgColor="white"
+                  outline="1px solid lightblue"
                   name="password"
                   type="password"
                   placeholder="Password"
@@ -91,11 +91,11 @@ const SignUpForm = () => {
                 />
               </InputGroup>
             </FormControl>
-            <Divider borderColor="gray.300" />
+            <Divider borderColor="telegram.100" />
             <Button
               type="submit"
               variant="solid"
-              colorScheme="facebook"
+              colorScheme="telegram"
               boxShadow="md"
             >
               Sign Up

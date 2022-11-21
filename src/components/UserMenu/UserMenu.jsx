@@ -21,9 +21,16 @@ const UserMenu = () => {
       <Box display="flex" alignItems="center" p="1.5">
         <Popover>
           <PopoverTrigger>
-            <Button color="facebook.700">{user.name}</Button>
+            <Button variant="ghost" colorScheme="telegram">
+              {user.name}
+            </Button>
           </PopoverTrigger>
-          <PopoverContent w="300px" textAlign="center" color="facebook.700">
+          <PopoverContent
+            w="300px"
+            textAlign="center"
+            mt="3"
+            outline="1px solid lightblue"
+          >
             <PopoverHeader>{user.email}</PopoverHeader>
           </PopoverContent>
         </Popover>
@@ -31,7 +38,7 @@ const UserMenu = () => {
         <Button
           type="button"
           variant="solid"
-          colorScheme="facebook"
+          colorScheme="telegram"
           boxShadow="md"
           ml="4"
           onClick={() => dispatch(logOutUser())}

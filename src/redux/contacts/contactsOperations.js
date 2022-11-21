@@ -26,6 +26,7 @@ export const addContact = createAsyncThunk(
   async (contact, { rejectWithValue }) => {
     try {
       const response = await phonebookAxiosInstance.post('/contacts', contact);
+      Notify.success('Contact created', { position: 'center-top' });
       return response.data;
     } catch (e) {
       Notify.failure(e.message, { position: 'center-top' });

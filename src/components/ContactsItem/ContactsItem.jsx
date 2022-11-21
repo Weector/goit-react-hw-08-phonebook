@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 const ContactsItem = ({ name, number }) => {
   return (
     <>
-      <Td>{name}</Td>
-      <Td>{number}</Td>
+      <Td p="2">{name}</Td>
+      <Td p="2">{number}</Td>
     </>
   );
 };

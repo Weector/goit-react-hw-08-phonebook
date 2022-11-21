@@ -38,10 +38,10 @@ const LoginForm = () => {
 
   return (
     <Box
-      bg="gray.100"
+      border="1px solid lightblue"
       w="400px"
       p="6"
-      boxShadow="md"
+      boxShadow="2xl"
       rounded="md"
       mx="auto"
       mt="20"
@@ -52,7 +52,7 @@ const LoginForm = () => {
           thickness="4px"
           speed="0.65s"
           emptyColor="gray.200"
-          color="facebook.700"
+          colorScheme="telegram"
           size="xl"
           textAlign="center"
         />
@@ -63,7 +63,7 @@ const LoginForm = () => {
               <InputGroup>
                 <InputLeftElement children={<EmailIcon />} />
                 <Input
-                  bgColor="white"
+                  outline="1px solid lightblue"
                   name="email"
                   type="email"
                   placeholder="Email"
@@ -75,7 +75,7 @@ const LoginForm = () => {
               <InputGroup>
                 <InputLeftElement children={<LockIcon />} />
                 <Input
-                  bgColor="white"
+                  outline="1px solid lightblue"
                   name="password"
                   type="password"
                   placeholder="Password"
@@ -83,11 +83,11 @@ const LoginForm = () => {
                 />
               </InputGroup>
             </FormControl>
-            <Divider borderColor="gray.300" />
+            <Divider borderColor="telegram.100" />
             <Button
               type="submit"
               variant="solid"
-              colorScheme="facebook"
+              colorScheme="telegram"
               boxShadow="md"
             >
               Login
@@ -96,7 +96,7 @@ const LoginForm = () => {
               <FormHelperText textAlign="center">
                 Login to see your phonebook, or
                 <Link style={{ color: 'darkblue' }} to="/register">
-                  <Text color="facebook.500" letterSpacing="wide">
+                  <Text color="telegram.500" letterSpacing="wide">
                     click here to Sign Up!
                   </Text>
                 </Link>

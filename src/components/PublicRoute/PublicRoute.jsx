@@ -4,12 +4,14 @@ import { selectIsLogin } from 'redux/selectors';
 
 const PublicRoute = ({
   Component,
-  redirectTo = '/login',
+  redirectTo = '/contacts',
   restricted = false,
 }) => {
   const isLogin = useSelector(selectIsLogin);
 
-  return isLogin ? <Navigate to={redirectTo} /> : Component;
+  const shouldRedirect = restricted && isLogin;
+
+  return shouldRedirect ? <Navigate to={redirectTo} /> : Component;
 };
 
 export default PublicRoute;
